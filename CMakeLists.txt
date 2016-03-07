@@ -20,7 +20,7 @@ endif()
 #
 # Oculus VR SDK dependency 
 #
-set(OVR_DIR ${CMAKE_SOURCE_DIR}/libraries/OculusSDK/LibOVR)
+set(OVR_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libraries/OculusSDK/LibOVR)
 # Check for the existence of the LibOVR project.  If it's missing, the 
 # submodule probably hasn't been checked out.
 if (NOT(EXISTS ${OVR_DIR} AND IS_DIRECTORY ${OVR_DIR}))
