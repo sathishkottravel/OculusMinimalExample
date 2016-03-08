@@ -1,6 +1,3 @@
-[submodule "cmake"]
-	path = cmake
-url=git@github.com:sathishkottravel/cmake.git
 [submodule "libraries/glfw"]
 	path = libraries/glfw
 	url = https://github.com/glfw/glfw.git
@@ -13,3 +10,6 @@ url=git@github.com:sathishkottravel/cmake.git
 [submodule "libraries/OculusSDK"]
 	path = libraries/OculusSDK
 	url = https://github.com/jherico/OculusSdkMin.git
+[submodule "cmake"]
+	path = cmake
+	url = git@github.com:sathishkottravel/cmake.git
