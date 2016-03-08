@@ -34,18 +34,26 @@ set(BUILD_SHARED_LIBS OFF)
 set_target_properties(OculusVR PROPERTIES FOLDER "3rdparty")
 list(APPEND EXAMPLE_LIBS OculusVR)
 
-
 ###############################################################################
 #
 # Non-Oculus third party dependencies 
 #
 
+set(OCULUS_MINIMAL_ENABLE_GLEW OFF CACHE BOOL "Enable/Disable GLEW 3rd Party dependencies")
+set(OCULUS_MINIMAL_ENABLE_GLFW OFF CACHE BOOL "Enable/Disable GLFW 3rd Party dependencies")
+set(OCULUS_MINIMAL_ENABLE_OGLPLUS OFF CACHE BOOL "Enable/Disable OGLPLUS 3rd Party dependencies")
+set(OCULUS_MINIMAL_ENABLE_GLM OFF CACHE BOOL "Enable/Disable GLM 3rd Party dependencies")
+
+if (OCULUS_MINIMAL_ENABLE_GLEW)
 # GLEW - Cross platform access to OpenGL 3+ functionality
 add_definitions(-DGLEW_STATIC)
 add_subdirectory(libraries/glew)
 set_target_properties(glew PROPERTIES FOLDER "3rdparty")
 list(APPEND EXAMPLE_LIBS glew)
+include_directories(${CMAKE_SOURCE_DIR}/libraries/glew/include)
+endif()
 
+if (OCULUS_MINIMAL_ENABLE_GLFW)
 # GLFW - Cross platform OpenGL window creation and input handling
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "Build the GLFW example programs")
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "Build the GLFW test programs")
@@ -57,12 +65,11 @@ list(APPEND EXAMPLE_LIBS glfw ${GLFW_LIBRARIES})
 
 find_package(Threads)
 list(APPEND EXAMPLE_LIBS ${CMAKE_THREAD_LIBS_INIT} )
-
-include_directories(${CMAKE_SOURCE_DIR}/libraries/glew/include)
 include_directories(${CMAKE_SOURCE_DIR}/libraries/glfw/include)
-include_directories(${CMAKE_SOURCE_DIR}/libraries/glm)
+endif()
 
 
+if (OCULUS_MINIMAL_ENABLE_OGLPLUS)
 # oglplus provides a nice interface for OpenGL encapsulation in C++
 #
 # However, it's CMake setup isn't well suited for inclusion in 
@@ -108,7 +115,9 @@ include_directories(${CMAKE_SOURCE_DIR}/libraries/oglplus/implement)
 # The site config header is in the binary directory, so we need to 
 # add that path too
 include_directories(${CMAKE_BINARY_DIR}/libraries/oglplus/include)
+endif()
 
+if (OCULUS_MINIMAL_ENABLE_GLM)
 ###############################################################################
 #
 # GLM - Vector / matrix header only math library based on the syntax of GLSL
@@ -117,6 +126,7 @@ include_directories(${CMAKE_BINARY_DIR}/libraries/oglplus/include)
 # header that switches based on what compiler is being used (based on predefined 
 # macros).  Why can't everyone do that?
 include_directories(${CMAKE_SOURCE_DIR}/libraries/glm)
+endif()
 
 ###############################################################################
 #
@@ -131,4 +141,4 @@ include_directories(${CMAKE_SOURCE_DIR}/libraries/OculusSDK/LibOVR/Src)
 #
 # The examples themselves
 #
-add_subdirectory(examples/cpp)
+#add_subdirectory(examples/cpp)
