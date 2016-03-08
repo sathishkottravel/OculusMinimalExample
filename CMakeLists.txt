@@ -43,6 +43,7 @@ set(OCULUS_MINIMAL_ENABLE_GLEW OFF CACHE BOOL "Enable/Disable GLEW 3rd Party dep
 set(OCULUS_MINIMAL_ENABLE_GLFW OFF CACHE BOOL "Enable/Disable GLFW 3rd Party dependencies")
 set(OCULUS_MINIMAL_ENABLE_OGLPLUS OFF CACHE BOOL "Enable/Disable OGLPLUS 3rd Party dependencies")
 set(OCULUS_MINIMAL_ENABLE_GLM OFF CACHE BOOL "Enable/Disable GLM 3rd Party dependencies")
+set(OCULUS_MINIMAL_ENABLE_BUILD_EXAMPLE_APP OFF CACHE BOOL "Enable/Disable Example application")
 
 if (OCULUS_MINIMAL_ENABLE_GLEW)
 # GLEW - Cross platform access to OpenGL 3+ functionality
@@ -141,4 +142,6 @@ include_directories(${CMAKE_SOURCE_DIR}/libraries/OculusSDK/LibOVR/Src)
 #
 # The examples themselves
 #
-#add_subdirectory(examples/cpp)
+if (OCULUS_MINIMAL_ENABLE_BUILD_EXAMPLE_APP)
+	add_subdirectory(examples/cpp)
+endif()
